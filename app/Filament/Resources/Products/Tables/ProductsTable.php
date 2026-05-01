@@ -21,7 +21,8 @@ class ProductsTable
     {
         return $table
             ->columns([
-                TextColumn::make('name'),
+                TextColumn::make('name')
+                ->sortable(),
                 TextColumn::make('sku')
                     ->badge() // Badge untuk SKU
                     ->color(fn($state): string => match (true) {
@@ -33,7 +34,8 @@ class ProductsTable
                     })
                     ->searchable(),
                 TextColumn::make('price')
-                    ->formatStateUsing(fn($state): string => 'Rp ' . number_format($state, 0, ',', '.')),
+                    ->formatStateUsing(fn($state): string => 'Rp ' . number_format($state, 0, ',', '.'))
+                    ->sortable(),
                 TextColumn::make('stock')
                     ->badge() // Mengubah menjadi badge
                     ->icon('heroicon-o-cube')

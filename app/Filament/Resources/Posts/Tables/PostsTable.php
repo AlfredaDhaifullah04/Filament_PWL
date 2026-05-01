@@ -9,6 +9,8 @@ use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ColorColumn;
 use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Filters\Filter;
+use Filament\Forms\Components\DatePicker;
 
 class PostsTable
 {
@@ -17,16 +19,26 @@ class PostsTable
         return $table
             ->columns([
                 //
-                TextColumn::make('title'),
-                TextColumn::make('slug'),
-                TextColumn::make('category.name'),
+                TextColumn::make('title')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('slug')
+                    ->sortable()
+                    ->searchable(),
+                TextColumn::make('category.name')
+                    ->sortable()
+                    ->searchable(),
                 ColorColumn::make('color'),
                 ImageColumn::make('image')
                     ->disk('public'),
                 TextColumn::make('published')
                     ->icon(fn ($state) => $state ? 'heroicon-o-check-circle' : 'heroicon-o-x-circle')
                     ->label('Published'),
-            ])
+                TextColumn::make('created_at')
+                    ->label('Created At')
+                    ->dateTime('d M Y H:i')
+                    ->sortable(),
+            ])->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])
